@@ -1,76 +1,133 @@
-import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { Button, Image, StyleSheet, Text, ScrollView, Alert, Dimensions, } from "react-native";
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Button, Image, ScrollView} from 'react-native';
 
-const { width } = Dimensions.get("window");
-
+// função principal do componentes e libs
 export default function App() {
-  const handleGoal = () => {
-    Alert.alert("Gol do Flamengo!");
-  };
+  // logica do meu componente 
+  const nome = "mylle"
 
+function alerta () {
+  alert("SUCESSO AREA GOSPEL")
+}
+
+
+
+// retorno e um codigo JSX (template)
+// renderizado na tela
   return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.title}>Flamengo</Text>
-        <Text style={styles.info}>Fundação: 15 de novembro de 1895</Text>
-        <Text style={styles.info}>Estádio: Maracanã</Text>
-        <Text style={styles.info}>Títulos Brasileiros: 8</Text>
-        <Text style={styles.info}>Libertadores: 3</Text>
-        <Text style={styles.info}>O Flamengo é um dos maiores clubes do Brasil, conhecido por sua torcida apaixonada e conquistas históricas.</Text>
+ <ScrollView>
+
+    <View style={styles.container}>
+    <StatusBar style="auto" />
+
+            <Text style={{fontSize:50}}>Valesca Mayssa</Text>
+            <Text style={{fontSize:25}}>Cantora </Text>
+
+            
+            <Text style={styles.textogrande}>Valesca Mayssa </Text>
+      <Text style={styles.textogrande}>Cantora gospel brasileira</Text>
+      <Text style={styles.textogrande}> Nascida em 24 de novembro de 1997</Text>
+      <Text style={styles.textogrande}> "Árvore Cortada", "Eis-me Aqui" </Text>
+      
+  
 
       <Image
-        source={{ uri: "https://i.pinimg.com/736x/cb/2a/c0/cb2ac08ef69aa7ecacc2735d53e8cb66.jpg" }}
-        style={styles.image}
+      source={{
+        uri: 'https://i.pinimg.com/236x/51/e9/6a/51e96a77c98ca633720d03bcd030bf17.jpg'
+      }}
+      style={{
+        height: 350,
+        width: 200,
+        paddingTop: 10,
+        marginVertical: 10,
+        borderRadius: 10,
+      }}
       />
       <Image
-        source={{ uri: "https://i.pinimg.com/736x/82/cd/4e/82cd4e1d92cfdd105b5b49586c057381.jpg" }}
-        style={styles.image}
+      source={{
+        uri: 'https://i.pinimg.com/474x/03/c9/70/03c970780dfd79f1f53ee424767e7245.jpg'
+      }}
+      style={{
+        height: 350,
+        width: 200,
+        paddingTop: 10,
+        marginVertical: 10,
+        borderRadius: 10,
+      }}
       />
       <Image
-        source={{ uri: "https://i.pinimg.com/736x/a3/ac/48/a3ac48dc797daa986d3b4be812d077d0.jpg" }}
-        style={styles.image}
+      source={{
+        uri: 'https://i.pinimg.com/236x/1a/82/df/1a82dfa67fdda94bb9d8d5daa6edd2e5.jpg'
+      }}
+      style={{
+        height: 350,
+        width: 200,
+        paddingTop: 10,
+        marginVertical: 10,
+        borderRadius: 10,
+      }}
+      />
+       <Image
+      source={{
+        uri: 'https://i.pinimg.com/236x/3b/8d/e9/3b8de9657cc1abd5dc51bbcfd18aa1d1.jpg'
+      }}
+      style={{
+        height: 350,
+        width: 200,
+        paddingTop: 10,
+        marginVertical: 10,
+        borderRadius: 10,
+      }}
       />
       <Image
-        source={{ uri: "https://i.pinimg.com/736x/0e/7e/f4/0e7ef452ec80f4f8772a7c8d94c149f5.jpg" }}
-        style={styles.image}
+      source={{
+        uri: 'https://i.pinimg.com/236x/8e/92/9e/8e929ea92023f804cd7824e21b698956.jpg'
+      }}
+      style={{
+        height: 350,
+        width: 200,
+        paddingTop: 10,
+        marginVertical: 10,
+        borderRadius: 10,
+      }}
       />
-      <Image
-        source={{ uri: "https://i.pinimg.com/736x/b0/d9/a8/b0d9a803b9f95e134bfc8da030a5fcf5.jpg" }}
-        style={styles.image}
-      />
+<View style={styles.buttonContainer}>
+     
+<Button title='Valesca Mayssa' onPress={alerta}></Button>
+</View>
 
-      <Button title="GOL" onPress={handleGoal} />
-      <StatusBar style="auto" />
-    </ScrollView>
+    </View>
+   </ScrollView>
+
   );
+
+  
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-    backgroundColor: "black",
+    flex: 1,
+    backgroundColor: '#F5F5DC',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 55,
   },
+  textogrande:{
+    fontSize: 20,
+    fontWeight: 20,
+    fontStyle:'italic',
+    backgroundColor: "#8B4513",
+  },
+
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 10,
-    color: "white",
-    fontFamily: "Poppins",
-  },
-  info: {
-    fontSize: 16,
-    marginBottom: 5,
-    color: "white",
-    fontFamily: "Poppins",
-  },
-  image: {
-    width: width * 0.9,
-    height: width * 1.5,
-    marginVertical: 10,
-    borderRadius: 15,
+    marginBottom: 30,
+  }, 
+  buttonContainer: {
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10,
+    backgroundColor: "#8B4513",
   },
 });
