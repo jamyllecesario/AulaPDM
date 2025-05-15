@@ -2,57 +2,47 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Image } from 'react-native';
 import MegaSenaScreen from './screens/MegaSenaScreen';
 import JogoDoBichoScreen from './screens/JogoDoBichoScreen';
-import { customTheme } from './src/theme';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <PaperProvider theme={customTheme}>
+    <PaperProvider>
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={({ route }) => ({
             headerStyle: {
-              backgroundColor: '#4CAF50', // Verde principal
+              backgroundColor: '#4CAF50', // Verde
               elevation: 4, // Sombra no Android
               shadowOpacity: 0.3, // Sombra no iOS
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#fff', // Cor do texto do header
             headerTitleAlign: 'center',
             headerTitleStyle: {
               fontWeight: 'bold',
               fontSize: 20,
             },
-            tabBarIcon: ({ focused, color, size }) => {
-              if (route.name === 'Jogo do Bicho') {
-                return (
-                  <Image
-                    source={{
-                      uri: 'https://cdn-icons-png.flaticon.com/512/616/616408.png',
-                    }}
-                    style={{
-                      width: focused ? 28 : 24,
-                      height: focused ? 28 : 24,
-                      tintColor: focused ? '#4CAF50' : '#aaa',
-                    }}
-                  />
-                );
+            tabBarIcon: ({ color, size }) => {
+              let iconName;
+
+              if (route.name === 'Mega Sena') {
+                iconName = 'numeric';
+              } else if (route.name === 'Jogo do Bicho') {
+                iconName = 'paw';
               }
 
-              // Ícone para Mega Sena
               return (
                 <MaterialCommunityIcons
-                  name="numeric"
-                  size={focused ? 28 : 24}
-                  color={focused ? '#4CAF50' : '#aaa'}
+                  name={iconName}
+                  size={size + 4}
+                  color={color}
                 />
               );
             },
-            tabBarActiveTintColor: '#4CAF50',
+            tabBarActiveTintColor: '#4CAF50', // Verde
             tabBarInactiveTintColor: '#aaa',
             tabBarStyle: {
               backgroundColor: '#fff',
