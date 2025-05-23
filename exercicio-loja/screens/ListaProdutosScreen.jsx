@@ -1,45 +1,79 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { Card, Title, Paragraph, ActivityIndicator } from 'react-native-paper';
+import axios from 'axios';
 
 export default function ListaProdutosScreen({ route, navigation }) {
   const { categoria } = route.params;
-  const [produtos, setProdutos] = useState([]);
-  const [carregando, setCarregando] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get(`https://dummyjson.com/products/category/${categoria}`)
       .then(response => {
-        setProdutos(response.data.products);
+        setProducts(response.data.products);
+        setLoading(false);
       })
-      .catch(error => console.error(error))
-      .finally(() => setCarregando(false));
+      .catch(error => {
+        console.error(error);
+        setLoading(false);
+      });
   }, [categoria]);
 
-  if (carregando) {
-    return <ActivityIndicator animating={true} size="large" style={styles.loading} />;
+  const renderProduct = ({ item }) => (
+    <Card 
+      style={styles.card} 
+      onPress={() => navigation.navigate('Produto', { idProduto: item.id })}
+    >
+      <Card.Cover source={{ uri: item.thumbnail }} />
+      <Card.Content>
+        <Title style={styles.title}>{item.title}</Title>
+        <Paragraph style={styles.price}>{`R$ ${item.price.toFixed(2)}`}</Paragraph>
+      </Card.Content>
+    </Card>
+  );
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator animating={true} size="large" color="#333" />
+      </View>
+    );
   }
 
   return (
-    <FlatList
-      style={{ paddingBottom: 45 }}
-      data={produtos}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => (
-        <Card style={styles.card} onPress={() => navigation.navigate('ProdutoScreen', { idProduto: item.id })}>
-          <Card.Cover source={{ uri: item.thumbnail }} style={{ height: 200 }} />
-          <Card.Content>
-            <Title>{item.title}</Title>
-            <Paragraph numberOfLines={2}>{item.description}</Paragraph>
-          </Card.Content>
-        </Card>
-      )}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={products}
+        renderItem={renderProduct}
+        keyExtractor={item => item.id.toString()}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: { margin: 10 },
-  loading: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#F5F5DC', // Beige background
+  },
+  card: {
+    marginVertical: 5,
+    elevation: 3,
+    backgroundColor: '#FFF8DC', // Lighter beige for cards
+  },
+  title: {
+    fontSize: 16,
+    color: '#333',
+  },
+  price: {
+    color: '#333',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5F5DC', // Beige background
+  },
 });
